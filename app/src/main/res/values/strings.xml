@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">NotesKotlinSample</string>
+    <string name="connect">Connect</string>
+    <string name="login">Your login</string>
+    <string name="pwd">Your password</string>
+    <string name="api_url">http://cesi.cleverapps.io/</string>
+
+</resources>

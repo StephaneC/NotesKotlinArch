@@ -1,0 +1,88 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
+
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion 27
+    defaultConfig {
+        applicationId "com.castrec.stephane.noteskotlinsample"
+        minSdkVersion 21
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+    }
+    buildTypes {
+        release {
+            postprocessing {
+                removeUnusedCode false
+                removeUnusedResources false
+                obfuscate false
+                optimizeCode false
+                proguardFile 'proguard-rules.pro'
+            }
+        }
+    }
+    compileOptions {
+        sourceCompatibility versions.sourceCompat
+        targetCompatibility versions.targetCompat
+    }
+    dexOptions {
+        keepRuntimeAnnotatedClasses false
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:${versions.kotlin}"
+
+    implementation "com.android.support:appcompat-v7:$versions.buildTools"
+    implementation "com.android.support:recyclerview-v7:$versions.buildTools"
+    implementation "com.android.support.constraint:constraint-layout:1.0.2"
+    implementation "com.android.support:cardview-v7:$versions.buildTools"
+    implementation "com.android.support:design:$versions.buildTools"
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+
+    implementation "android.arch.lifecycle:extensions:$versions.archComp"
+    implementation "android.arch.lifecycle:common-java8:$versions.archComp"
+    implementation "android.arch.persistence.room:runtime:$versions.room"
+    implementation "android.arch.persistence.room:compiler:$versions.room"
+    implementation"android.arch.persistence.room:rxjava2:$versions.roomRx"
+    implementation "android.arch.lifecycle:reactivestreams:1.1.0"
+
+    //annotationProcessor "android.arch.lifecycle:compiler:${versions.archComp}"
+    annotationProcessor "android.arch.persistence.room:compiler:$versions.room"
+    kapt "com.google.dagger:dagger-compiler:${versions.dagger}"
+
+    //dagger
+    implementation "com.google.dagger:dagger:${versions.dagger}"
+
+
+    //square
+    implementation "com.squareup.retrofit2:retrofit:$versions.retrofit"
+    implementation "com.squareup.retrofit2:converter-gson:$versions.retrofit"
+    implementation "com.squareup.okhttp3:okhttp:$versions.retrofit"
+    implementation "com.squareup.picasso:picasso:$versions.picasso"
+    implementation "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:$versions.retrofitRxAdapter"
+
+    //Facebook
+    implementation "com.facebook.stetho:stetho:${versions.stetho}"
+    implementation "com.facebook.stetho:stetho-okhttp3:${versions.stetho}"
+
+    // RX part
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
+    // Because RxAndroid releases are few and far between, it is recommended you also
+    // explicitly depend on RxJava's latest version for bug fixes and new features.
+    // (see https://github.com/ReactiveX/RxJava/releases for latest 2.x.x version)
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.7'
+
+
+}
