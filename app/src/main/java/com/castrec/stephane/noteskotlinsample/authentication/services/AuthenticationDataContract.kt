@@ -1,7 +1,6 @@
 package com.castrec.stephane.noteskotlinsample.users.services
 
 import com.castrec.stephane.noteskotlinsample.commons.model.Token
-import com.castrec.stephane.noteskotlinsample.users.model.User
 import io.reactivex.Flowable
 
 /**

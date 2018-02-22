@@ -1,7 +1,7 @@
 package com.castrec.stephane.noteskotlinsample.users.services
 
+import android.util.Log
 import com.castrec.stephane.noteskotlinsample.commons.Scheduler
-import com.castrec.stephane.noteskotlinsample.commons.Session
 import com.castrec.stephane.noteskotlinsample.users.model.User
 import io.reactivex.Flowable
 import io.reactivex.FlowableEmitter
@@ -25,13 +25,22 @@ class UsersRepository(
 
     override fun fetchUsers(): Flowable<List<User>> {
         return Flowable.create({ emitter: FlowableEmitter<List<User>> ->
-            remote.fetchUsers().subscribe(
-                    {users ->
-                        emitter.onNext(users)
-                        //TODO local.saveUsers(users)
-                        emitter.onComplete()
-                    },
-                    {error -> emitter.onError(error)})
+            //first send stuff from local
+            Log.d("KotlinNotes", "Loading users")
+            local.fetchUsers().subscribe({
+                users ->
+                Log.d("KotlinNotes", "Loaded users from local")
+                emitter.onNext(users)
+                //then fecth from remote
+                remote.fetchUsers().subscribe(
+                        {users ->
+                            Log.d("KotlinNotes", "Loaded users from remote")
+                            emitter.onNext(users)
+                            local.saveUsers(users)
+                            emitter.onComplete()
+                        },
+                        {error -> emitter.onError(error)})
+            })
         }, BackpressureStrategy.BUFFER)
     }
 

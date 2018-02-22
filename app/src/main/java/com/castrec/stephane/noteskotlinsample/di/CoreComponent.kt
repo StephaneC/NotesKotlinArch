@@ -8,6 +8,7 @@ import com.castrec.stephane.noteskotlinsample.commons.Session
 import com.castrec.stephane.noteskotlinsample.commons.model.Token
 import com.castrec.stephane.noteskotlinsample.users.di.AuthenticationModule
 import com.castrec.stephane.noteskotlinsample.users.di.UsersModule
+import com.squareup.picasso.Picasso
 import dagger.Component
 import retrofit2.Retrofit
 import javax.inject.Singleton

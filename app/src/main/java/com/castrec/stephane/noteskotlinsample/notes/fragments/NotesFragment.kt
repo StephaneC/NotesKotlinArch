@@ -12,9 +12,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.castrec.stephane.noteskotlinsample.R
 import com.castrec.stephane.noteskotlinsample.di.NotesDH
-import com.castrec.stephane.noteskotlinsample.users.model.User
-import com.castrec.stephane.noteskotlinsample.users.viewmodel.UsersViewModel
-import com.castrec.stephane.noteskotlinsample.users.viewmodel.UsersViewModelFactory
+import com.castrec.stephane.noteskotlinsample.notes.fragments.NotesRecyclerViewAdapter
+import com.castrec.stephane.noteskotlinsample.notes.model.Note
+import com.castrec.stephane.noteskotlinsample.notes.viewmodel.NotesViewModel
+import com.castrec.stephane.noteskotlinsample.notes.viewmodel.NotesViewModelFactory
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -31,17 +32,17 @@ import javax.inject.Inject
  * Mandatory empty constructor for the fragment manager to instantiate the
  * fragment (e.g. upon screen orientation changes).
  */
-class UsersFragment : Fragment() {
+class NotesFragment : Fragment() {
 
-    private val component by lazy { NotesDH.usersComponent() }
+    private val component by lazy { NotesDH.notesComponent() }
 
     @Inject
-    lateinit var viewModelFactory: UsersViewModelFactory
-    private val viewModel: UsersViewModel by lazy { ViewModelProviders.of(this, viewModelFactory).get(UsersViewModel::class.java) }
+    lateinit var viewModelFactory: NotesViewModelFactory
+    private val viewModel: NotesViewModel by lazy { ViewModelProviders.of(this, viewModelFactory).get(NotesViewModel::class.java) }
 
     private val disposable = CompositeDisposable()
 
-    private lateinit var adapter : UserRecyclerViewAdapter
+    private lateinit var adapter : NotesRecyclerViewAdapter
 
     private lateinit var mV:RecyclerView
 
@@ -76,18 +77,18 @@ class UsersFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        disposable.add(viewModel.fetchUsers()
+        disposable.add(viewModel.fetchNotes()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ users: List<User> -> updateUsers(users) },
+                .subscribe({ users: List<Note> -> updateNotes(users) },
                         { error -> manageError(error) }))
     }
 
-    private fun updateUsers(users: List<User>) {
-        adapter = UserRecyclerViewAdapter(users)
+    private fun updateNotes(users: List<Note>) {
+        adapter = NotesRecyclerViewAdapter(users)
         if (mV is RecyclerView) {
             //Shitty. Have to find a proper way to update adapter
-            adapter = UserRecyclerViewAdapter(users)
+            adapter = NotesRecyclerViewAdapter(users)
             mV.adapter = adapter
         }
     }
@@ -103,8 +104,8 @@ class UsersFragment : Fragment() {
 
     companion object {
 
-        fun newInstance(): UsersFragment {
-            return UsersFragment()
+        fun newInstance(): NotesFragment {
+            return NotesFragment()
         }
     }
 }

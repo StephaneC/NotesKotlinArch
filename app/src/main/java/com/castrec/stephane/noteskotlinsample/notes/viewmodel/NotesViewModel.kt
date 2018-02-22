@@ -1,19 +1,19 @@
-package com.castrec.stephane.noteskotlinsample.users.viewmodel
+package com.castrec.stephane.noteskotlinsample.notes.viewmodel
 
 import android.arch.lifecycle.ViewModel
-import com.castrec.stephane.noteskotlinsample.users.model.User
-import com.castrec.stephane.noteskotlinsample.users.services.UsersDataContract
+import com.castrec.stephane.noteskotlinsample.notes.model.Note
+import com.castrec.stephane.noteskotlinsample.notes.services.NotesDataContract
 import io.reactivex.Flowable
 import io.reactivex.disposables.CompositeDisposable
 
 /**
  * Created by sca on 18/02/2018.
  */
-class UsersViewModel(private val repository: UsersDataContract.Repository,
+class NotesViewModel(private val repository: NotesDataContract.Repository,
                      private val compositeDisposable: CompositeDisposable) : ViewModel() {
 
-    fun fetchUsers(): Flowable<List<User>> {
-        return repository.fetchUsers()
+    fun fetchNotes(): Flowable<List<Note>> {
+        return repository.fetchNotes()
     }
 
     override fun onCleared() {

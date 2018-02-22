@@ -2,7 +2,6 @@ package com.castrec.stephane.noteskotlinsample.users.viewmodel
 
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
-import com.castrec.stephane.noteskotlinsample.users.services.AuthenticationDataContract
 import com.castrec.stephane.noteskotlinsample.users.services.UsersDataContract
 import io.reactivex.disposables.CompositeDisposable
 
