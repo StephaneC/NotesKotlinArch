@@ -9,23 +9,16 @@ import io.reactivex.Flowable
  *
  * This class describe every interactions we can do with data
  */
-interface UsersDataContract {
+interface AuthenticationDataContract {
     /** call to db. */
     interface Repository {
-        //Subject pattern - Will use Flowable for now
-        //val usersFetchOutcome: PublishSubject<List<User>>
-        //val tokenFetchOutcome: PublishSubject<Token>
-        fun fetchUsers():Flowable<List<User>>
-    }
-
-    /** call to **/
-    interface Local {
-        fun fetchUsers(): Flowable<List<User>>
-        fun saveUsers(users: List<User>)
+        fun signin(login: String, pwd: String): Flowable<Token>
+        fun signup(login: String, pwd: String, photoUrl: String)
     }
 
     /** call to api. */
     interface Remote {
-        fun fetchUsers(): Flowable<List<User>>
+        fun signin(login: String, pwd: String): Flowable<Token>
+        fun signup(login: String, pwd: String, photoUrl: String)
     }
 }

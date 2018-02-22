@@ -1,4 +1,4 @@
-package com.castrec.stephane.noteskotlinsample.users.fragments
+package com.castrec.stephane.noteskotlinsample.authentication.fragments
 
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
@@ -10,12 +10,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import com.castrec.stephane.noteskotlinsample.MainActivity
 import com.castrec.stephane.noteskotlinsample.R
 import com.castrec.stephane.noteskotlinsample.di.NotesDH
-import com.castrec.stephane.noteskotlinsample.users.model.Token
-import com.castrec.stephane.noteskotlinsample.users.viewmodel.UsersViewModel
-import com.castrec.stephane.noteskotlinsample.users.viewmodel.UsersViewModelFactory
+import com.castrec.stephane.noteskotlinsample.commons.model.Token
+import com.castrec.stephane.noteskotlinsample.users.viewmodel.AuthenticationViewModel
+import com.castrec.stephane.noteskotlinsample.users.viewmodel.AuthenticationViewModelFactory
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -29,9 +30,9 @@ class SigninFragment: Fragment() {
 
 
     @Inject
-    lateinit var viewModelFactory: UsersViewModelFactory
+    lateinit var viewModelFactory: AuthenticationViewModelFactory
 
-    private val viewModel: UsersViewModel by lazy { ViewModelProviders.of(this, viewModelFactory).get(UsersViewModel::class.java) }
+    private val viewModel: AuthenticationViewModel by lazy { ViewModelProviders.of(this, viewModelFactory).get(AuthenticationViewModel::class.java) }
 
     private val disposable = CompositeDisposable()
 
@@ -65,19 +66,18 @@ class SigninFragment: Fragment() {
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({ token: Token -> loggedIn(token) },
                             { error -> loginError(error) }))
-            viewModel.signin(login?.text.toString(), pwd?.text.toString())
         });
 
         return v;
     }
 
     fun loginError(error: Throwable) {
+        Toast.makeText(context, context?.getString(R.string.login_error), Toast.LENGTH_LONG).show();
         Log.w("SigninFragment", "Error login", error)
-
     }
 
     fun loggedIn(token: Token){
-        val i : Intent = MainActivity.newIntent(this.context)
+        val i : Intent = Intent(this.context, MainActivity::class.java)
         startActivity(i)
     }
 }

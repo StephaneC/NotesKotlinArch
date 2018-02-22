@@ -1,7 +1,7 @@
 package com.castrec.stephane.noteskotlinsample.users.services
 
 import android.content.SharedPreferences
-import com.castrec.stephane.noteskotlinsample.users.model.Token
+import com.castrec.stephane.noteskotlinsample.commons.model.Token
 import com.castrec.stephane.noteskotlinsample.users.model.User
 import io.reactivex.Flowable
 
@@ -11,7 +11,6 @@ import io.reactivex.Flowable
  */
 class UsersLocalData(private val sharedPreferences: SharedPreferences): UsersDataContract.Local {
 
-    val TOKEN = "token";
 
     override fun fetchUsers(): Flowable<List<User>> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
@@ -19,20 +18,6 @@ class UsersLocalData(private val sharedPreferences: SharedPreferences): UsersDat
 
     override fun saveUsers(users: List<User>) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun getToken(): Token {
-        val token = sharedPreferences.getString(TOKEN, null);
-        return Token(token);
-    }
-
-    /**
-     * Store token in sharedPref
-     */
-    override fun saveToken(token: Token) {
-        val editor = sharedPreferences!!.edit()
-        editor.putString(TOKEN, token.token)
-        editor.apply()
     }
 
 

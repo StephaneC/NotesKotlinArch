@@ -1,4 +1,4 @@
-package com.castrec.stephane.noteskotlinsample.users.model
+package com.castrec.stephane.noteskotlinsample.commons.model
 
 /**
  * Created by sca on 18/02/2018.

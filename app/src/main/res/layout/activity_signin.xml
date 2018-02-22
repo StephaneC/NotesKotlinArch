@@ -8,7 +8,7 @@
     <fragment
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        class="com.castrec.stephane.noteskotlinsample.users.fragments.SigninFragment"
+        class="com.castrec.stephane.noteskotlinsample.authentication.fragments.SigninFragment"
         android:id="@+id/signin_fragment"/>
 
 </android.support.constraint.ConstraintLayout>

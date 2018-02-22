@@ -6,6 +6,6 @@ import com.google.gson.annotations.SerializedName
 /**
  * Created by sca on 18/02/2018.
  */
-data class User(@SerializedName("timestamp") @PrimaryKey val timestamp: Long,
-                @SerializedName("name") val name: String,
-                @SerializedName("photoUrl") val photoUrl: String)
+data class User(@SerializedName("date") @PrimaryKey val timestamp: Long,
+                @SerializedName("username") val name: String,
+                @SerializedName("urlPhoto") val photoUrl: String)
