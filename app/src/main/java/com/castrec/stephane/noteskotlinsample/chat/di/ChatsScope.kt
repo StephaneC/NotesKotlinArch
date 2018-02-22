@@ -1,4 +1,4 @@
-package com.castrec.stephane.noteskotlinsample.notes.di
+package com.castrec.stephane.noteskotlinsample.users.di
 
 import javax.inject.Scope
 
@@ -7,4 +7,4 @@ import javax.inject.Scope
  */
 @Scope
 @Retention(AnnotationRetention.RUNTIME)
-annotation class NotesScope
+annotation class ChatsScope

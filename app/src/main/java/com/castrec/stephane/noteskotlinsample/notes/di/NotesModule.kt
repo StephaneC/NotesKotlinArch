@@ -9,8 +9,8 @@ import com.castrec.stephane.noteskotlinsample.commons.database.NotesDB
 import com.castrec.stephane.noteskotlinsample.di.CoreComponent
 import com.castrec.stephane.noteskotlinsample.notes.services.*
 import com.castrec.stephane.noteskotlinsample.notes.viewmodel.NotesViewModelFactory
-import com.castrec.stephane.noteskotlinsample.users.di.NotesScope
-import com.castrec.stephane.noteskotlinsample.users.fragments.NotesFragment
+import com.castrec.stephane.noteskotlinsample.notes.di.NotesScope
+import com.castrec.stephane.noteskotlinsample.notes.fragments.NotesFragment
 import dagger.Component
 import dagger.Module
 import dagger.Provides

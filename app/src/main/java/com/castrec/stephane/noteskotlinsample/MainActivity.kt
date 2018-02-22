@@ -13,7 +13,8 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import com.castrec.stephane.noteskotlinsample.users.fragments.NotesFragment
+import com.castrec.stephane.noteskotlinsample.notes.fragments.NotesFragment
+import com.castrec.stephane.noteskotlinsample.users.fragments.ChatsFragment
 import com.castrec.stephane.noteskotlinsample.users.fragments.UsersFragment
 
 import kotlinx.android.synthetic.main.activity_main.*
@@ -83,8 +84,10 @@ class MainActivity : AppCompatActivity() {
         override fun getItem(position: Int): Fragment {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            if(position == 1){
+            if(position == 2){
                 return UsersFragment.newInstance()
+            } else if(position == 0) {
+                return ChatsFragment.newInstance()
             } else {
                 return NotesFragment.newInstance()
             }
@@ -92,7 +95,7 @@ class MainActivity : AppCompatActivity() {
 
         override fun getCount(): Int {
             // Show 3 total pages.
-            return 2
+            return 3
         }
     }
 }

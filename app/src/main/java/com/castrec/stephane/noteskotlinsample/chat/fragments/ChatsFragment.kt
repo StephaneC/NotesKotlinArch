@@ -1,4 +1,4 @@
-package com.castrec.stephane.noteskotlinsample.notes.fragments
+package com.castrec.stephane.noteskotlinsample.users.fragments
 
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -12,10 +12,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.castrec.stephane.noteskotlinsample.R
 import com.castrec.stephane.noteskotlinsample.di.NotesDH
-import com.castrec.stephane.noteskotlinsample.notes.fragments.NotesRecyclerViewAdapter
-import com.castrec.stephane.noteskotlinsample.notes.model.Note
-import com.castrec.stephane.noteskotlinsample.notes.viewmodel.NotesViewModel
-import com.castrec.stephane.noteskotlinsample.notes.viewmodel.NotesViewModelFactory
+import com.castrec.stephane.noteskotlinsample.chat.fragments.ChatsRecyclerViewAdapter
+import com.castrec.stephane.noteskotlinsample.chat.model.Chat
+import com.castrec.stephane.noteskotlinsample.chat.viewmodel.ChatsViewModel
+import com.castrec.stephane.noteskotlinsample.chat.viewmodel.ChatsViewModelFactory
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -32,17 +32,17 @@ import javax.inject.Inject
  * Mandatory empty constructor for the fragment manager to instantiate the
  * fragment (e.g. upon screen orientation changes).
  */
-class NotesFragment : Fragment() {
+class ChatsFragment : Fragment() {
 
-    private val component by lazy { NotesDH.notesComponent() }
+    private val component by lazy { NotesDH.chatsComponent() }
 
     @Inject
-    lateinit var viewModelFactory: NotesViewModelFactory
-    private val viewModel: NotesViewModel by lazy { ViewModelProviders.of(this, viewModelFactory).get(NotesViewModel::class.java) }
+    lateinit var viewModelFactory: ChatsViewModelFactory
+    private val viewModel: ChatsViewModel by lazy { ViewModelProviders.of(this, viewModelFactory).get(ChatsViewModel::class.java) }
 
     private val disposable = CompositeDisposable()
 
-    private lateinit var adapter : NotesRecyclerViewAdapter
+    private lateinit var adapter : ChatsRecyclerViewAdapter
 
     private lateinit var mV:RecyclerView
 
@@ -77,24 +77,24 @@ class NotesFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        disposable.add(viewModel.fetchNotes()
+        disposable.add(viewModel.fetchChats()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ notes: List<Note> -> updateNotes(notes) },
+                .subscribe({ users: List<Chat> -> updateChats(users) },
                         { error -> manageError(error) }))
     }
 
-    private fun updateNotes(notes: List<Note>) {
-        adapter = NotesRecyclerViewAdapter(notes)
+    private fun updateChats(users: List<Chat>) {
+        adapter = ChatsRecyclerViewAdapter(users)
         if (mV is RecyclerView) {
             //Shitty. Have to find a proper way to update adapter
-            adapter = NotesRecyclerViewAdapter(notes)
+            adapter = ChatsRecyclerViewAdapter(users)
             mV.adapter = adapter
         }
     }
 
     private fun manageError(error: Throwable?) {
-        Toast.makeText(context, context?.getString(R.string.notes_error), Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, context?.getString(R.string.users_error), Toast.LENGTH_SHORT).show()
     }
 
     override fun onDetach() {
@@ -104,8 +104,8 @@ class NotesFragment : Fragment() {
 
     companion object {
 
-        fun newInstance(): NotesFragment {
-            return NotesFragment()
+        fun newInstance(): ChatsFragment {
+            return ChatsFragment()
         }
     }
 }

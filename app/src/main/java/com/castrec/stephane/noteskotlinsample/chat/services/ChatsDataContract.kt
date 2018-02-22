@@ -1,6 +1,6 @@
-package com.castrec.stephane.noteskotlinsample.notes.services
+package com.castrec.stephane.noteskotlinsample.chat.services
 
-import com.castrec.stephane.noteskotlinsample.notes.model.Note
+import com.castrec.stephane.noteskotlinsample.chat.model.Chat
 import io.reactivex.Flowable
 
 /**
@@ -8,23 +8,23 @@ import io.reactivex.Flowable
  *
  * This class describe every interactions we can do with data
  */
-interface NotesDataContract {
+interface ChatsDataContract {
     /** call to db. */
     interface Repository {
         //Subject pattern - Will use Flowable for now
-        //val notesFetchOutcome: PublishSubject<List<User>>
+        //val usersFetchOutcome: PublishSubject<List<User>>
         //val tokenFetchOutcome: PublishSubject<Token>
-        fun fetchNotes():Flowable<List<Note>>
+        fun fetchChats():Flowable<List<Chat>>
     }
 
     /** call to **/
     interface Local {
-        fun fetchNotes(): Flowable<List<Note>>
-        fun saveNotes(notes: List<Note>)
+        fun fetchChats(): Flowable<List<Chat>>
+        fun saveChats(users: List<Chat>)
     }
 
     /** call to api. */
     interface Remote {
-        fun fetchNotes(): Flowable<List<Note>>
+        fun fetchChats(): Flowable<List<Chat>>
     }
 }

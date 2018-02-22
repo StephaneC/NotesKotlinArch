@@ -1,6 +1,8 @@
 package com.castrec.stephane.noteskotlinsample.di
 
 import com.castrec.stephane.noteskotlinsample.CoreApp
+import com.castrec.stephane.noteskotlinsample.chat.di.ChatsComponent
+import com.castrec.stephane.noteskotlinsample.chat.di.DaggerChatsComponent
 import com.castrec.stephane.noteskotlinsample.notes.di.NotesComponent
 import com.castrec.stephane.noteskotlinsample.users.di.AuthenticationComponent
 import com.castrec.stephane.noteskotlinsample.users.di.DaggerAuthenticationComponent
@@ -17,6 +19,7 @@ object NotesDH {
     private var authenticationComponent: AuthenticationComponent? = null
     private var usersComponent: UsersComponent? = null
     private var notesComponent: NotesComponent? = null
+    private var chatsComponent: ChatsComponent? = null
 
     fun authenticationComponent(): AuthenticationComponent {
         if (authenticationComponent == null)
@@ -35,6 +38,13 @@ object NotesDH {
             notesComponent = DaggerNotesComponent.builder().coreComponent(CoreApp.coreComponent).build()
         return notesComponent as NotesComponent
     }
+
+    fun chatsComponent(): ChatsComponent {
+        if (chatsComponent == null)
+            chatsComponent = DaggerChatsComponent.builder().coreComponent(CoreApp.coreComponent).build()
+        return chatsComponent as ChatsComponent
+    }
+
 
     fun destroyListComponent() {
         authenticationComponent = null
