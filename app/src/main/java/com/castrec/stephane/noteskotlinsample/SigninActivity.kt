@@ -1,7 +1,7 @@
 package com.castrec.stephane.noteskotlinsample
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 
 class SigninActivity : AppCompatActivity() {
 

@@ -1,5 +1,6 @@
 package com.castrec.stephane.noteskotlinsample
 
+import android.content.Intent
 import android.support.design.widget.TabLayout
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
@@ -13,14 +14,24 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import com.castrec.stephane.noteskotlinsample.commons.Session
+import com.castrec.stephane.noteskotlinsample.di.NotesDH
 import com.castrec.stephane.noteskotlinsample.notes.fragments.NotesFragment
 import com.castrec.stephane.noteskotlinsample.users.fragments.ChatsFragment
 import com.castrec.stephane.noteskotlinsample.users.fragments.UsersFragment
 
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_main.view.*
+import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
+
+    private val component by lazy { NotesDH.authenticationComponent() }
+
+
+    @Inject
+    lateinit var session : Session
+
 
     /**
      * The [android.support.v4.view.PagerAdapter] that will provide
@@ -35,6 +46,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        component.inject(this)
 
         setSupportActionBar(toolbar)
         // Create the adapter that will return a fragment for each of the three
@@ -52,6 +65,16 @@ class MainActivity : AppCompatActivity() {
                     .setAction("Action", null).show()
         }
 
+    }
+
+    override fun onResume(){
+        super.onResume()
+        if(session.getToken() == null || session.getToken().token.isNullOrEmpty()){
+            //directly go to signin activity
+            val i : Intent = Intent(this, SigninActivity::class.java)
+            startActivity(i)
+            this.finish()
+        }
     }
 
 

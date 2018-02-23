@@ -1,6 +1,9 @@
 package com.castrec.stephane.noteskotlinsample.users.di
 
+import android.app.Activity
 import android.content.SharedPreferences
+import com.castrec.stephane.noteskotlinsample.MainActivity
+import com.castrec.stephane.noteskotlinsample.SigninActivity
 import com.castrec.stephane.noteskotlinsample.commons.Scheduler
 import com.castrec.stephane.noteskotlinsample.di.CoreComponent
 import com.castrec.stephane.noteskotlinsample.authentication.fragments.SigninFragment
@@ -24,6 +27,7 @@ interface AuthenticationComponent {
     fun scheduler(): Scheduler
 
     fun inject(fragment: SigninFragment)
+    fun inject(activity: MainActivity)
 }
 
 @AuthenticationScope
