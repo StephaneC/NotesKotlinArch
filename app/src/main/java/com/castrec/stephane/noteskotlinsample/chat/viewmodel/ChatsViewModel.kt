@@ -5,7 +5,7 @@ import com.castrec.stephane.noteskotlinsample.chat.model.Chat
 import com.castrec.stephane.noteskotlinsample.chat.services.ChatsDataContract
 import io.reactivex.Flowable
 import io.reactivex.disposables.CompositeDisposable
-
+import java.util.List
 /**
  * Created by sca on 18/02/2018.
  */

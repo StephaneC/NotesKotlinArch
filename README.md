@@ -1,6 +1,5 @@
 # Use case for Kotlin + Architecture components Android App
-Based on https://github.com/karntrehan
-
+https://github.com/karntrehan/Posts
 ## Android Architecture
 ### lifecycle
 

@@ -4,17 +4,23 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
 import android.widget.TextView
 import com.castrec.stephane.noteskotlinsample.R
-
+import com.castrec.stephane.noteskotlinsample.commons.adapter.CustomBaseAdapter
+import com.castrec.stephane.noteskotlinsample.commons.helper.DateHelper
 import com.castrec.stephane.noteskotlinsample.notes.model.Note
+import java.util.List
+
+
 
 /**
- * [RecyclerView.Adapter] that can display a [DummyItem] and makes a call to the
+ * [RecyclerView.Adapter] that can display a [DummyItem] and makes a call to theh
  * specified [OnListFragmentInteractionListener].
  * TODO: Replace the implementation with code for your data type.
  */
-class NotesRecyclerViewAdapter(private val mValues: List<Note>) : RecyclerView.Adapter<NotesRecyclerViewAdapter.ViewHolder>() {
+class NotesRecyclerViewAdapter(private val mValues: ArrayList<Note>) :
+        CustomBaseAdapter<Note, NotesRecyclerViewAdapter.ViewHolder>(mValues) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -24,7 +30,9 @@ class NotesRecyclerViewAdapter(private val mValues: List<Note>) : RecyclerView.A
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.mItem = mValues[position]
-        holder.mIdView.text = mValues[position].name
+        holder.mUserView.text = mValues[position].name
+        holder.mdateView.text = DateHelper.getFormattedDate(mValues[position].timestamp)
+        //holder.mActionView.checked = mValues[position].name
         holder.mContentView.text = mValues[position].message
     }
 
@@ -33,14 +41,19 @@ class NotesRecyclerViewAdapter(private val mValues: List<Note>) : RecyclerView.A
     }
 
 
+
     inner class ViewHolder(val mView: View) : RecyclerView.ViewHolder(mView) {
-        val mIdView: TextView
+        val mdateView: TextView
+        val mUserView: TextView
+        val mActionView: CheckBox
         val mContentView: TextView
         var mItem: Note? = null
 
         init {
-            mIdView = mView.findViewById<View>(R.id.id) as TextView
-            mContentView = mView.findViewById<View>(R.id.content) as TextView
+            mdateView = mView.findViewById<View>(R.id.note_date) as TextView
+            mUserView = mView.findViewById<View>(R.id.note_user) as TextView
+            mActionView = mView.findViewById<View>(R.id.note_check) as CheckBox
+            mContentView = mView.findViewById<View>(R.id.note_message) as TextView
         }
 
         override fun toString(): String {

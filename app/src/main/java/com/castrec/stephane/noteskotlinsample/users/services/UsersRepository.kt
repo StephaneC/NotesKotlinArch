@@ -7,7 +7,7 @@ import io.reactivex.Flowable
 import io.reactivex.FlowableEmitter
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.BackpressureStrategy
-
+import java.util.List
 
 
 /**
@@ -39,7 +39,8 @@ class UsersRepository(
                             local.saveUsers(users)
                             emitter.onComplete()
                         },
-                        {error -> emitter.onError(error)})
+                        {error -> emitter.onError(error)}
+                )
             })
         }, BackpressureStrategy.BUFFER)
     }

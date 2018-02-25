@@ -6,13 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.castrec.stephane.noteskotlinsample.R
-
+import com.castrec.stephane.noteskotlinsample.commons.adapter.CustomBaseAdapter
 import com.castrec.stephane.noteskotlinsample.users.model.User
 
 /**
  * [RecyclerView.Adapter] that can display a user
  */
-class UserRecyclerViewAdapter(private val mValues: List<User>) : RecyclerView.Adapter<UserRecyclerViewAdapter.ViewHolder>() {
+class UserRecyclerViewAdapter(private val mValues: ArrayList<User>) : CustomBaseAdapter<User, UserRecyclerViewAdapter.ViewHolder>(mValues) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)

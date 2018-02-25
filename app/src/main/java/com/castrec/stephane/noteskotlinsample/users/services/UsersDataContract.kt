@@ -2,6 +2,7 @@ package com.castrec.stephane.noteskotlinsample.users.services
 
 import com.castrec.stephane.noteskotlinsample.users.model.User
 import io.reactivex.Flowable
+import java.util.List
 
 /**
  * Created by sca on 18/02/2018.

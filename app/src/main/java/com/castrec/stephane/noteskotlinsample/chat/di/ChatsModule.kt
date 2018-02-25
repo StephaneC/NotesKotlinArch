@@ -4,7 +4,6 @@ import android.arch.persistence.room.Room
 import android.content.Context
 import com.castrec.stephane.noteskotlinsample.commons.Constants
 import com.castrec.stephane.noteskotlinsample.commons.Scheduler
-import com.castrec.stephane.noteskotlinsample.commons.Session
 import com.castrec.stephane.noteskotlinsample.commons.database.NotesDB
 import com.castrec.stephane.noteskotlinsample.di.CoreComponent
 import com.castrec.stephane.noteskotlinsample.chat.services.*
@@ -44,7 +43,7 @@ class ChatsModule {
 
     @Provides
     @ChatsScope
-    fun remoteData(session: Session, notesService: ChatsServices): ChatsDataContract.Remote = ChatsRemoteData(notesService, session)
+    fun remoteData(notesService: ChatsServices): ChatsDataContract.Remote = ChatsRemoteData(notesService)
 
     @Provides
     @ChatsScope

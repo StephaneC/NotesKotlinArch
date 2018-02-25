@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.castrec.stephane.noteskotlinsample.R
+import com.castrec.stephane.noteskotlinsample.commons.BaseTabFragment
 import com.castrec.stephane.noteskotlinsample.di.NotesDH
 import com.castrec.stephane.noteskotlinsample.users.model.User
 import com.castrec.stephane.noteskotlinsample.users.viewmodel.UsersViewModel
@@ -18,7 +19,9 @@ import com.castrec.stephane.noteskotlinsample.users.viewmodel.UsersViewModelFact
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import java.util.ArrayList
 import javax.inject.Inject
+import java.util.List
 
 /**
  * A fragment representing a list of Items.
@@ -31,7 +34,7 @@ import javax.inject.Inject
  * Mandatory empty constructor for the fragment manager to instantiate the
  * fragment (e.g. upon screen orientation changes).
  */
-class UsersFragment : Fragment() {
+class UsersFragment : BaseTabFragment() {
 
     private val component by lazy { NotesDH.usersComponent() }
 
@@ -43,35 +46,18 @@ class UsersFragment : Fragment() {
 
     private lateinit var adapter : UserRecyclerViewAdapter
 
-    private lateinit var mV:RecyclerView
-
-
-    private var mColumnCount = 1
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_user_list, container, false)
+        val v = super.onCreateView(inflater, container, savedInstanceState)
 
-        // Set the adapter
-        if (view is RecyclerView) {
-            val context = view.getContext()
-            if (mColumnCount <= 1) {
-                view.layoutManager = LinearLayoutManager(context)
-            } else {
-                view.layoutManager = GridLayoutManager(context, mColumnCount)
-            }
-            mV = view
-        }
+        adapter = UserRecyclerViewAdapter(ArrayList<User>());
+        mV.adapter = adapter
 
         component.inject(this)
 
-
-        return view
+        return v
     }
+
 
 
     override fun onStart() {
@@ -84,21 +70,20 @@ class UsersFragment : Fragment() {
     }
 
     private fun updateUsers(users: List<User>) {
-        adapter = UserRecyclerViewAdapter(users)
-        if (mV is RecyclerView) {
-            //Shitty. Have to find a proper way to update adapter
-            adapter = UserRecyclerViewAdapter(users)
-            mV.adapter = adapter
-        }
-    }
-
-    private fun manageError(error: Throwable?) {
-        Toast.makeText(context, context?.getString(R.string.users_error), Toast.LENGTH_SHORT).show()
+        adapter.updateList(users)
     }
 
     override fun onDetach() {
         super.onDetach()
         disposable.clear()
+    }
+
+    override fun getTitle(): Int {
+        return R.string.title_users
+    }
+
+    override fun getIcon(): Int {
+        return android.R.drawable.ic_menu_info_details
     }
 
     companion object {

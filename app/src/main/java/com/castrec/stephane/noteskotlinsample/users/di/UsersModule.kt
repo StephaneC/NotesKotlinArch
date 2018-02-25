@@ -45,7 +45,7 @@ class UsersModule {
 
     @Provides
     @UsersScope
-    fun remoteData(session: Session, usersService: UsersServices): UsersDataContract.Remote = UsersRemoteData(usersService, session)
+    fun remoteData(usersService: UsersServices): UsersDataContract.Remote = UsersRemoteData(usersService)
 
     @Provides
     @UsersScope

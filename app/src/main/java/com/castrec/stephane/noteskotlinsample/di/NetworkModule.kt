@@ -3,6 +3,8 @@ package com.castrec.stephane.noteskotlinsample.di
 import android.content.Context
 import com.castrec.stephane.noteskotlinsample.BuildConfig
 import com.castrec.stephane.noteskotlinsample.R
+import com.castrec.stephane.noteskotlinsample.commons.ConnectivityInterceptor
+import com.castrec.stephane.noteskotlinsample.commons.Session
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.google.gson.Gson
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -24,6 +26,12 @@ class NetworkModule {
 
     @Provides
     @Singleton
+    fun providesInterceptor(context: Context, session: Session): ConnectivityInterceptor {
+        return ConnectivityInterceptor(context, session)
+    }
+
+    @Provides
+    @Singleton
     fun providesRetrofit(context: Context,
                         gsonConverterFactory: GsonConverterFactory,
                          rxJava2CallAdapterFactory: RxJava2CallAdapterFactory,
@@ -37,9 +45,10 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun providesOkHttpClient(cache: Cache): OkHttpClient {
+    fun providesOkHttpClient(cache: Cache, connectivityInterceptor: ConnectivityInterceptor): OkHttpClient {
         val client = OkHttpClient.Builder()
                 .cache(cache)
+                .addInterceptor(connectivityInterceptor)
                 .connectTimeout(10, TimeUnit.SECONDS)
                 .writeTimeout(30, TimeUnit.SECONDS)
                 .readTimeout(10, TimeUnit.SECONDS)

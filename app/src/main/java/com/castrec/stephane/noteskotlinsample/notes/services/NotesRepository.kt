@@ -3,12 +3,11 @@ package com.castrec.stephane.noteskotlinsample.notes.services
 import android.util.Log
 import com.castrec.stephane.noteskotlinsample.commons.Scheduler
 import com.castrec.stephane.noteskotlinsample.notes.model.Note
-import com.castrec.stephane.noteskotlinsample.notes.services.NotesDataContract
+import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
 import io.reactivex.FlowableEmitter
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.BackpressureStrategy
-
+import java.util.List
 
 
 /**
@@ -40,7 +39,8 @@ class NotesRepository(
                             local.saveNotes(notes)
                             emitter.onComplete()
                         },
-                        {error -> emitter.onError(error)})
+                        {error -> emitter.onError(error)}
+                )
             })
         }, BackpressureStrategy.BUFFER)
     }

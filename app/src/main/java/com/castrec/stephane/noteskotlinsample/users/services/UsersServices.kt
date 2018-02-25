@@ -6,9 +6,9 @@ package com.castrec.stephane.noteskotlinsample.users.services
 import com.castrec.stephane.noteskotlinsample.users.model.User
 import io.reactivex.Flowable
 import retrofit2.http.GET
-import retrofit2.http.Header
+import java.util.List
 
 interface UsersServices {
     @GET("/users")
-    fun fetchUsers(@Header("token") token: String): Flowable<List<User>>
+    fun fetchUsers(): Flowable<List<User>>
 }

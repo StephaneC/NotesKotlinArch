@@ -3,9 +3,8 @@ package com.castrec.stephane.noteskotlinsample.chat.services
 import android.util.Log
 import com.castrec.stephane.noteskotlinsample.commons.database.NotesDB
 import com.castrec.stephane.noteskotlinsample.chat.model.Chat
-import com.castrec.stephane.noteskotlinsample.chat.services.ChatsDataContract
 import io.reactivex.Flowable
-
+import java.util.List
 /**
  * Created by sca on 18/02/2018.
  * Class to get remote data.

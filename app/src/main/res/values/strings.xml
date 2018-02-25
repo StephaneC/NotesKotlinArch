@@ -13,5 +13,9 @@
     <string name="login_error">Login Failed</string>
     <string name="users_error">Erreur dans le chargement des utilisateurs</string>
     <string name="notes_error">Error retrieving notes</string>
+    <string name="title_notes">Notes</string>
+    <string name="title_users">Users</string>
+    <string name="title_chats">Chats</string>
+    <string name="no_items">No items here. Be the first to add one.</string>
 
 </resources>

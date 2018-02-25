@@ -4,13 +4,11 @@ import android.arch.persistence.room.Room
 import android.content.Context
 import com.castrec.stephane.noteskotlinsample.commons.Constants
 import com.castrec.stephane.noteskotlinsample.commons.Scheduler
-import com.castrec.stephane.noteskotlinsample.commons.Session
 import com.castrec.stephane.noteskotlinsample.commons.database.NotesDB
 import com.castrec.stephane.noteskotlinsample.di.CoreComponent
+import com.castrec.stephane.noteskotlinsample.notes.fragments.NotesFragment
 import com.castrec.stephane.noteskotlinsample.notes.services.*
 import com.castrec.stephane.noteskotlinsample.notes.viewmodel.NotesViewModelFactory
-import com.castrec.stephane.noteskotlinsample.notes.di.NotesScope
-import com.castrec.stephane.noteskotlinsample.notes.fragments.NotesFragment
 import dagger.Component
 import dagger.Module
 import dagger.Provides
@@ -44,7 +42,7 @@ class NotesModule {
 
     @Provides
     @NotesScope
-    fun remoteData(session: Session, notesService: NotesServices): NotesDataContract.Remote = NotesRemoteData(notesService, session)
+    fun remoteData(notesService: NotesServices): NotesDataContract.Remote = NotesRemoteData(notesService)
 
     @Provides
     @NotesScope

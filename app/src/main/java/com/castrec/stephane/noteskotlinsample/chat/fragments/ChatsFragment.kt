@@ -2,24 +2,22 @@ package com.castrec.stephane.noteskotlinsample.users.fragments
 
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.castrec.stephane.noteskotlinsample.R
-import com.castrec.stephane.noteskotlinsample.di.NotesDH
 import com.castrec.stephane.noteskotlinsample.chat.fragments.ChatsRecyclerViewAdapter
 import com.castrec.stephane.noteskotlinsample.chat.model.Chat
 import com.castrec.stephane.noteskotlinsample.chat.viewmodel.ChatsViewModel
 import com.castrec.stephane.noteskotlinsample.chat.viewmodel.ChatsViewModelFactory
+import com.castrec.stephane.noteskotlinsample.commons.BaseTabFragment
+import com.castrec.stephane.noteskotlinsample.di.NotesDH
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import java.util.List
 import javax.inject.Inject
+import java.util.ArrayList
 
 /**
  * A fragment representing a list of Items.
@@ -32,7 +30,7 @@ import javax.inject.Inject
  * Mandatory empty constructor for the fragment manager to instantiate the
  * fragment (e.g. upon screen orientation changes).
  */
-class ChatsFragment : Fragment() {
+class ChatsFragment : BaseTabFragment() {
 
     private val component by lazy { NotesDH.chatsComponent() }
 
@@ -44,34 +42,18 @@ class ChatsFragment : Fragment() {
 
     private lateinit var adapter : ChatsRecyclerViewAdapter
 
-    private lateinit var mV:RecyclerView
 
-
-    private var mColumnCount = 1
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_user_list, container, false)
+        val v = super.onCreateView(inflater, container, savedInstanceState)
 
-        // Set the adapter
-        if (view is RecyclerView) {
-            val context = view.getContext()
-            if (mColumnCount <= 1) {
-                view.layoutManager = LinearLayoutManager(context)
-            } else {
-                view.layoutManager = GridLayoutManager(context, mColumnCount)
-            }
-            mV = view
-        }
+        adapter = ChatsRecyclerViewAdapter(ArrayList<Chat>());
+        mV.adapter = adapter
 
         component.inject(this)
 
-
-        return view
+        return v
     }
 
 
@@ -85,21 +67,23 @@ class ChatsFragment : Fragment() {
     }
 
     private fun updateChats(users: List<Chat>) {
-        adapter = ChatsRecyclerViewAdapter(users)
-        if (mV is RecyclerView) {
-            //Shitty. Have to find a proper way to update adapter
-            adapter = ChatsRecyclerViewAdapter(users)
-            mV.adapter = adapter
-        }
-    }
+        manageListState(users.size)
 
-    private fun manageError(error: Throwable?) {
-        Toast.makeText(context, context?.getString(R.string.users_error), Toast.LENGTH_SHORT).show()
+        adapter.updateList(users)
+
     }
 
     override fun onDetach() {
         super.onDetach()
         disposable.clear()
+    }
+
+    override fun getTitle(): Int {
+        return R.string.title_chats
+    }
+
+    override fun getIcon(): Int {
+        return android.R.drawable.ic_menu_edit
     }
 
     companion object {

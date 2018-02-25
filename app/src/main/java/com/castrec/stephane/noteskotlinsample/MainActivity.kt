@@ -1,27 +1,21 @@
 package com.castrec.stephane.noteskotlinsample
 
 import android.content.Intent
-import android.support.design.widget.TabLayout
+import android.os.Bundle
 import android.support.design.widget.Snackbar
-import android.support.v7.app.AppCompatActivity
-
+import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
-import android.os.Bundle
-import android.view.LayoutInflater
+import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
 import com.castrec.stephane.noteskotlinsample.commons.Session
 import com.castrec.stephane.noteskotlinsample.di.NotesDH
 import com.castrec.stephane.noteskotlinsample.notes.fragments.NotesFragment
 import com.castrec.stephane.noteskotlinsample.users.fragments.ChatsFragment
 import com.castrec.stephane.noteskotlinsample.users.fragments.UsersFragment
-
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_main.view.*
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
@@ -60,11 +54,21 @@ class MainActivity : AppCompatActivity() {
         container.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabs))
         tabs.addOnTabSelectedListener(TabLayout.ViewPagerOnTabSelectedListener(container))
 
+        initTabs(tabs)
+
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
         }
 
+    }
+
+    private fun initTabs(tabLayout : TabLayout) {
+
+        // set icons
+        tabLayout.getTabAt(0)!!.setIcon(android.R.drawable.ic_menu_week)
+        tabLayout.getTabAt(1)!!.setIcon(android.R.drawable.ic_menu_edit)
+        tabLayout.getTabAt(2)!!.setIcon(android.R.drawable.ic_menu_info_details)
     }
 
     override fun onResume(){
@@ -116,6 +120,11 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        override fun getPageTitle(position: Int): CharSequence? {
+            // return null to show no title.
+            return null
+
+        }
         override fun getCount(): Int {
             // Show 3 total pages.
             return 3

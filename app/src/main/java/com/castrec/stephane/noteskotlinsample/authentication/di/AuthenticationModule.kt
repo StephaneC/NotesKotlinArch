@@ -1,14 +1,14 @@
 package com.castrec.stephane.noteskotlinsample.users.di
 
-import android.app.Activity
-import android.content.SharedPreferences
 import com.castrec.stephane.noteskotlinsample.MainActivity
-import com.castrec.stephane.noteskotlinsample.SigninActivity
-import com.castrec.stephane.noteskotlinsample.commons.Scheduler
-import com.castrec.stephane.noteskotlinsample.di.CoreComponent
 import com.castrec.stephane.noteskotlinsample.authentication.fragments.SigninFragment
+import com.castrec.stephane.noteskotlinsample.commons.Scheduler
 import com.castrec.stephane.noteskotlinsample.commons.Session
-import com.castrec.stephane.noteskotlinsample.users.services.*
+import com.castrec.stephane.noteskotlinsample.di.CoreComponent
+import com.castrec.stephane.noteskotlinsample.users.services.AuthenticationDataContract
+import com.castrec.stephane.noteskotlinsample.users.services.AuthenticationRemoteData
+import com.castrec.stephane.noteskotlinsample.users.services.AuthenticationRepository
+import com.castrec.stephane.noteskotlinsample.users.services.AuthenticationServices
 import com.castrec.stephane.noteskotlinsample.users.viewmodel.AuthenticationViewModelFactory
 import dagger.Component
 import dagger.Module

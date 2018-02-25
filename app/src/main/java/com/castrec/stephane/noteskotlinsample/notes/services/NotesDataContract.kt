@@ -2,7 +2,7 @@ package com.castrec.stephane.noteskotlinsample.notes.services
 
 import com.castrec.stephane.noteskotlinsample.notes.model.Note
 import io.reactivex.Flowable
-
+import java.util.List
 /**
  * Created by sca on 18/02/2018.
  *
