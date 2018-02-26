@@ -57,12 +57,14 @@ abstract class BaseTabFragment : Fragment() {
         if(listSize>0 && emptyListStub != null) {
             //there is item, displays it
             emptyListStub?.visibility = View.GONE
+            mV.visibility = View.VISIBLE
         } else {
             // no item. display stub
             if (emptyListStub == null) {
                 //should be done once.
                 emptyListStub = this.view!!.findViewById<ViewStub>(R.id.empty_stub)
                 emptyListStub?.inflate()
+                mV.visibility = View.GONE
             }
         }
     }

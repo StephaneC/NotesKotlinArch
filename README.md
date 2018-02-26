@@ -22,9 +22,18 @@ Can be used for Fragments communication
 ### Room
 
 ### Paging
-
+Not used for now.
 
 ## Dependencies
 
 * Dagger : Dependencie injection
 * stetho : Debug
+
+
+# WIP
+ * Actions on Notes
+ * Post notes/messages
+ * Update Readme doc
+ * enable an automatic refresh 
+ * loader when requesting data
+ * Images on user
