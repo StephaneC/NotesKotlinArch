@@ -47,7 +47,6 @@ Not used for now.
 
 
 # WIP
- * Actions on Notes
  * Post notes/messages
  * enable an automatic refresh 
  * loader when requesting data
