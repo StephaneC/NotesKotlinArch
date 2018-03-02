@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
+import android.widget.CompoundButton
 import android.widget.TextView
 import com.castrec.stephane.noteskotlinsample.R
 import com.castrec.stephane.noteskotlinsample.commons.adapter.CustomBaseAdapter
@@ -19,7 +20,7 @@ import java.util.List
  * specified [OnListFragmentInteractionListener].
  * TODO: Replace the implementation with code for your data type.
  */
-class NotesRecyclerViewAdapter(private val mValues: ArrayList<Note>) :
+class NotesRecyclerViewAdapter(private val mValues: ArrayList<Note>, private val mListener: CompoundButton.OnCheckedChangeListener?) :
         CustomBaseAdapter<Note, NotesRecyclerViewAdapter.ViewHolder>(mValues) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -32,8 +33,11 @@ class NotesRecyclerViewAdapter(private val mValues: ArrayList<Note>) :
         holder.mItem = mValues[position]
         holder.mUserView.text = mValues[position].name
         holder.mdateView.text = DateHelper.getFormattedDate(mValues[position].timestamp)
-        //holder.mActionView.checked = mValues[position].name
+        holder.mActionView.isChecked = mValues[position].done
         holder.mContentView.text = mValues[position].message
+        holder.mActionView.setOnCheckedChangeListener(mListener)
+        holder.mActionView.tag = mValues[position].id
+
     }
 
     override fun getItemCount(): Int {

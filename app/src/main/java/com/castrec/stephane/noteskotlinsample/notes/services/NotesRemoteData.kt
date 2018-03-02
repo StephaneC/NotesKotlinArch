@@ -10,6 +10,14 @@ import java.util.List
  * Class to get remote data.
  */
 class NotesRemoteData(private val notesService: NotesServices): NotesDataContract.Remote {
+    override fun postNote(note: String): Flowable<Note> {
+        return notesService.postNote(note)
+    }
+
+    override fun checkNote(noteId: String, done: Boolean): Flowable<Note> {
+        return notesService.checkNote(noteId, done)
+    }
+
     override fun fetchNotes(): Flowable<List<Note>> {
         Log.d("KotlinNotes", "Users remote fetch")
         return notesService.fetchNotes();

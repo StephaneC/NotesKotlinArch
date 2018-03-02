@@ -17,5 +17,6 @@
     <string name="title_users">Users</string>
     <string name="title_chats">Chats</string>
     <string name="no_items">No items here. Be the first to add one.</string>
+    <string name="note_updated">Note updated</string>
 
 </resources>

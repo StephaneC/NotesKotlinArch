@@ -10,7 +10,9 @@ import java.util.List
  * Class to get remote data.
  */
 class NotesLocalData(private val notesDb: NotesDB): NotesDataContract.Local {
-
+    override fun saveNote(note: Note) {
+        return notesDb.notesDao().upsert(note)
+    }
 
     override fun fetchNotes(): Flowable<List<Note>> {
         Log.d("KotlinNotes", "Users Local fetch")

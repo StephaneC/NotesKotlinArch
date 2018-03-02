@@ -16,6 +16,14 @@ class NotesViewModel(private val repository: NotesDataContract.Repository,
         return repository.fetchNotes()
     }
 
+    fun postNote(note: String): Flowable<Note> {
+        return repository.postNote(note)
+    }
+
+    fun checkNotes(note: String, check: Boolean): Flowable<Note> {
+        return repository.checkNote(note, check)
+    }
+
     override fun onCleared() {
         super.onCleared()
         //clear the disposables when the viewmodel is cleared

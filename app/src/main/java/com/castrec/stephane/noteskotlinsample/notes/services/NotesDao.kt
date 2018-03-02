@@ -15,4 +15,7 @@ interface NotesDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun upsertAll(notes: List<Note>)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun upsert(note: Note)
 }

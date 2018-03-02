@@ -15,16 +15,23 @@ interface NotesDataContract {
         //val notesFetchOutcome: PublishSubject<List<User>>
         //val tokenFetchOutcome: PublishSubject<Token>
         fun fetchNotes():Flowable<List<Note>>
+        fun checkNote(noteId: String, done: Boolean) : Flowable<Note>
+        fun postNote(note: String): Flowable<Note>
+
     }
 
     /** call to **/
     interface Local {
         fun fetchNotes(): Flowable<List<Note>>
         fun saveNotes(notes: List<Note>)
+        fun saveNote(note: Note)
+
     }
 
     /** call to api. */
     interface Remote {
         fun fetchNotes(): Flowable<List<Note>>
+        fun checkNote(noteId: String, done: Boolean) : Flowable<Note>
+        fun postNote(note: String): Flowable<Note>
     }
 }

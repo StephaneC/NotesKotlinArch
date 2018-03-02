@@ -8,6 +8,8 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CompoundButton
+import android.widget.Toast
 import com.castrec.stephane.noteskotlinsample.R
 import com.castrec.stephane.noteskotlinsample.commons.BaseTabFragment
 import com.castrec.stephane.noteskotlinsample.di.NotesDH
@@ -52,7 +54,16 @@ class NotesFragment : BaseTabFragment() {
                               savedInstanceState: Bundle?): View? {
         val v = super.onCreateView(inflater, container, savedInstanceState)
 
-        adapter = NotesRecyclerViewAdapter(ArrayList<Note>());
+        adapter = NotesRecyclerViewAdapter(ArrayList<Note>(), CompoundButton.OnCheckedChangeListener{
+            button, check ->
+            disposable.add(viewModel.checkNotes(button.getTag() as String, check)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe({ note: Note -> Toast.makeText(context, R.string.note_updated, Toast.LENGTH_SHORT).show()
+                        disposable.clear()
+                    },
+                            { error -> manageError(error) }))
+        })
         mV.adapter = adapter
 
         component.inject(this)

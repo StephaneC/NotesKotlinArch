@@ -16,7 +16,7 @@ interface Session {
 class AppSession(val sharedPreferences: SharedPreferences): Session {
 
     override fun getToken(): Token {
-        val token = sharedPreferences.getString("token", null);
+        val token = sharedPreferences.getString("token", "");
         return Token(token);
     }
 

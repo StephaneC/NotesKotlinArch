@@ -22,6 +22,33 @@ class NotesRepository(
         private val scheduler: Scheduler,
         private val compositeDisposable: CompositeDisposable
 ): NotesDataContract.Repository {
+    override fun postNote(note: String): Flowable<Note> {
+        return Flowable.create({ emitter: FlowableEmitter<Note> ->
+            remote.postNote(note).subscribe(
+                    {note->
+                        //it worked, update list
+                        local.saveNote(note)
+                        emitter.onComplete()
+                    },
+                    {error -> emitter.onError(error)}
+            )
+
+        }, BackpressureStrategy.BUFFER)
+    }
+
+    override fun checkNote(noteId: String, done: Boolean): Flowable<Note> {
+        return Flowable.create({ emitter: FlowableEmitter<Note> ->
+            remote.checkNote(noteId, done).subscribe(
+                    {note->
+                        //it worked, update list
+                        local.saveNote(note)
+                        emitter.onComplete()
+                    },
+                    {error -> emitter.onError(error)}
+            )
+
+        }, BackpressureStrategy.BUFFER)
+    }
 
     override fun fetchNotes(): Flowable<List<Note>> {
         return Flowable.create({ emitter: FlowableEmitter<List<Note>> ->
